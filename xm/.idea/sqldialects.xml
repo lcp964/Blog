@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/db_script/course.sql" dialect="TSQL" />
+    <file url="file://$PROJECT_DIR$/db_script/news_tag.sql" dialect="SQLite" />
+    <file url="file://$PROJECT_DIR$/db_script/tb_banner.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/db_script/tb_comments.sql" dialect="SQLite" />
+    <file url="file://$PROJECT_DIR$/db_script/tb_hot.sql" dialect="MySQL" />
+  </component>
+</project>

@@ -1,0 +1,228 @@
+
+
+{% extends 'base/base.html' %}
+{% load news_template %}
+
+{% block title %}
+搜索页面
+{% endblock   %}
+
+{% block link %}
+<link rel="stylesheet" href="../../static/css/news/search.css">
+
+{% endblock   %}
+
+{% block main %}
+<main id="main">
+    <div class="w1200 clearfix">
+        <!-- main-contain start  -->
+        <div class="main-contain ">
+                   <!-- search-box start -->
+                   <div class="search-box">
+                       <form action="" style="display: inline-flex;">
+
+                           <input type="search" placeholder="请输入要搜索的内容" name="q" class="search-control">
+
+
+                           <input type="submit" value="搜索" class="search-btn">
+                       </form>
+                       <!-- 可以用浮动 垂直对齐 以及 flex  -->
+                   </div>
+                   <!-- search-box end -->
+                   <!-- content start -->
+                   <div class="content">
+                   {% if not show %}
+                       <!-- search-list start -->
+{#                        {% if not show_all %}#}
+                          <div class="search-result-list">
+                            <h2 class="search-result-title">
+                              搜索结果 <span style="font-weight: 700;color: #ff6620;">{{ paginator.num_pages }}</span>页
+                            </h2>
+                            <ul class="news-list">
+                              {# 导入自带高亮功能 #}
+                              {% load highlight %}
+                              {% for one_news in page.object_list %}
+                                <li class="news-item clearfix">
+                                  <a href="{% url 'index:n_detail' one_news.id %}" class="news-thumbnail" target="_blank">
+                                  <img src="{{ one_news.object.image_url }}">
+                                  </a>
+                                  <div class="news-content">
+                                    <h4 class="news-title">
+                                      <a href="{% url 'index:n_detail' one_news.id %}">
+                                        {% highlight one_news.title with query css_class "highlight" %}
+                                      </a>
+                                    </h4>
+                                    <p class="news-details">{{ one_news.digest }}</p>
+                                    <div class="news-other">
+                                      <span class="news-type">{{ one_news.object.tag.name }}</span>
+                                      <span class="news-time">{{ one_news.object.update_time }}</span>
+                                      <span
+                                          class="news-author">{% highlight one_news.object.author.username with query css_class "highlight" %}
+
+                                      </span>
+                                    </div>
+                                  </div>
+                                </li>
+                              {% endfor %}
+
+
+                            </ul>
+                          </div>
+
+                        {% else %}
+
+                          <div class="news-contain">
+                            <div class="hot-recommend-list">
+                              <h2 class="hot-recommend-title">热门推荐</h2>
+                              <ul class="news-list">
+
+                                {% for one_hotnews in page.object_list %}
+
+                                  <li class="news-item clearfix">
+                                    <a href="#" class="news-thumbnail">
+                                      <img src="{{ one_hotnews.news.image_url }}">
+                                    </a>
+                                    <div class="news-content">
+                                      <h4 class="news-title">
+                                        <a href="{% url 'index:n_detail' one_hotnews.news.id %}">{{ one_hotnews.news.title }}</a>
+                                      </h4>
+                                      <p class="news-details">{{ one_hotnews.news.digest }}</p>
+                                      <div class="news-other">
+                                        <span class="news-type">{{ one_hotnews.news.tag.name }}</span>
+                                        <span class="news-time">{{ one_hotnews.update_time }}</span>
+                                        <span class="news-author">{{ one_hotnews.news.author.username }}</span>
+                                      </div>
+                                    </div>
+                                  </li>
+
+                                {% endfor %}
+
+
+                              </ul>
+                            </div>
+                          </div>
+
+                        {% endif %}
+
+                       <!-- search-list end -->
+                       <!-- news-contain start -->
+
+                    {# 分页导航 #}
+                     <div class="page-box" id="pages">
+                       <div class="pagebar" id="pageBar">
+                          <a class="a1">{{ page.paginator.count | default:0 }}条</a>
+{#                          上一页的URL地址#}
+                         {% if page.has_previous %}
+                           {% if query %}
+                             <a href="{% url 'index:search' %}?q={{ query }}&amp;page={{ page.previous_page_number }}&q={{ query }}"
+                                class="prev">上一页</a>
+                           {% else %}
+                             <a href="{% url 'index:search' %}?page={{ page.previous_page_number }}" class="prev">上一页</a>
+                           {% endif %}
+                         {% endif %}
+
+
+{#                          列出所有的URL地址 页码#}
+                       {% if page.has_previous or page.has_next %}
+
+                        {% for n in page|page_bar %}
+                            {% if query %}
+                                {% if n == '...' %}
+                                    <span class="point">{{ n }}</span>
+                                {% else %}
+                                    {% if n == page.number %}
+                                        <span class="sel">{{ n }}</span>
+                                    {% else %}
+                                        <a href="{% url 'index:search' %}?page={{ n }}&q={{ query }}">{{ n }}</a>
+                                    {% endif %}
+                                {% endif %}
+                            {% else %}
+                                {% if n == '...' %}
+                                    <span class="point">{{ n }}</span>
+                                {% else %}
+                                    {% if n == page.number %}
+                                        <span class="sel">{{ n }}</span>
+                                    {% else %}
+                                        <a href="{% url 'index:search' %}?page={{ n }}">{{ n }}</a>
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+{#                       next_page 下一页的URL地址#}
+                         {% if page.has_next %}
+                           {% if query %}
+                             <a href="{% url 'index:search' %}?q={{ query }}&amp;page={{ page.next_page_number }}&q={{ query }}"
+                                class="next">下一页</a>
+                           {% else %}
+                             <a href="{% url 'index:search' %}?page={{ page.next_page_number }}" class="next">下一页</a>
+                           {% endif %}
+                         {% endif %}
+                       </div>
+                     </div>
+                     <!-- news-contain end -->
+                   </div>
+                   <!-- content end -->
+               </div>
+        <!-- main-contain  end -->
+        <!-- side start -->
+        <aside class="side">
+             <div class="side-activities">
+              <h3 class="activities-title">在线课堂<a href="
+bos://888888888888/videoworks/console-upload/531284eb3afd15463e717192e6bd320c.mp4
+">更多</a></h3>
+              <div class="activities-img">
+                  <a href="javascript:void(0);" target="_blank">
+                      <video src="
+http://kdrdxb00kexev9wg66j.exp.bcevod.com/mda-kdrmkh7bw0vfavr8/mda-kdrmkh7bw0vfavr8.m3u8
+" controls="controls" height="180px" width="320px" >        </video>
+                      <!--<img src="http://photovideo.photo.qq.com/1074_0b2ekvpwaoygvuaajqmv5npdiviemckama2a.f20.mp4?dis_k=9914d49034c3e32e988c3170ff7f21f7&dis_t=1586772502&vuin=2441497185" alt="title">-->
+                  </a>
+                  <p class="activities-tips">治愈系漫画(宫骏崎)</p>
+              </div>
+              <ul class="activities-list">
+
+              </ul>
+          </div>
+            <div class="side-attention clearfix">
+                <h3 class="attention-title">关注我</h3>
+                <ul class="side-attention-address">
+                    <li>
+                        <a href="javascript:void(0);" target="_blank"><i class="PyWhich py-GitHub"></i>longlong</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" target="_blank"><i class="PyWhich py-zhihu"
+                                                                         style="color:rgb(0, 108, 226);"></i>longlong</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" target="_blank"><i class="PyWhich py-weibo"
+                                                                         style="color:rgb(245,92,110);"></i>longlong</a>
+                    </li>
+                </ul>
+                <div class="side-attention-qr">
+                    <p>扫码关注</p>
+                </div>
+            </div>
+
+
+        </aside>
+        <!-- side end -->
+
+
+    </div>
+</main>
+{% endblock   %}
+
+
+ {% block script %}
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script src="../../static/js/commons.js"></script>
+    {% endblock  %}
+
+
+
+
+
+
+

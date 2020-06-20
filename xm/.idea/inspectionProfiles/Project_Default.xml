@@ -1,0 +1,55 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPep8Inspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="E303" />
+          <option value="E111" />
+          <option value="E302" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="django.utils.MiddlewareMixin" />
+          <option value="yuntongxun.middlewares.get_token" />
+          <option value="celery_tasks.sms.tasks.logger" />
+          <option value="users.views.logger" />
+          <option value="celery_tasks.sms.tasks.sms_code" />
+          <option value="celery_tasks.sms.tasks.self" />
+          <option value="celery_tasks.sms.tasks.send_res" />
+          <option value="celery_tasks.sms.tasks.*" />
+          <option value="users.views.View" />
+          <option value="requests.POST" />
+          <option value="users.views.user" />
+          <option value="users.views.csrf_exempt" />
+          <option value="users.views.django" />
+          <option value="users.views.RegisterView" />
+          <option value="users.forms.user_info" />
+          <option value="users.forms.pass_wd" />
+          <option value="users.forms.rmber" />
+          <option value="users.forms.self" />
+          <option value="users.forms.constants" />
+          <option value="users.forms.cleaned_data" />
+          <option value="users.views.LogginView" />
+          <option value="users.views.LogoutView.session" />
+          <option value="users.views.res_error" />
+          <option value="news.views.models" />
+          <option value="news.views.request" />
+          <option value="news.views.view" />
+          <option value="news.views.page" />
+          <option value="django.db.models.Tag" />
+          <option value="news.views.to_dict" />
+          <option value="news.models.to_dict" />
+          <option value="django.forms.models.to_dict" />
+          <option value="courses.models.Teacher" />
+          <option value="str.strftime" />
+          <option value="admin.views.news_id" />
+          <option value="news.models.Banner.P_CHOICES" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/xm/apps/admin/views.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/xm/apps/news/templatetags/news_template.py" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/xm/templates/admin/news/index.html" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/xm/urls.py" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/xm/utils/demo.py" charset="UTF-8" />
+  </component>
+</project>

@@ -1,0 +1,166 @@
+{% extends 'base/base.html'%}
+{% load static %}
+
+{% block title %}
+{{title}}
+{% endblock  %}
+
+{% block link %}
+  <link rel="stylesheet" href="../../static/css/news/news-detail.css">
+{% endblock  %}
+
+{% block main %}
+
+<main id="main">
+  <div class="w1200 clearfix">
+    <!-- news-contain start  -->
+    <div class="news-contain">
+      <h1 class="news-title">{{ news.title}}</h1>
+      <div class="news-info">
+        <div class="news-info-left">
+          <span class="news-author">{{ news.author}}</span>
+          <span class="news-pub-time">{{ news.update_time}}</span>
+          <span class="news-type">{{ news.tag.name}}</span>
+        </div>
+      </div>
+      <article class="news-content">
+        {{news.content|safe }}
+      </article>
+       <div class="comment-contain">
+        <div class="comment-pub clearfix">
+          <div class="new-comment">
+            文章评论(<span class="comment-count">0</span>)
+          </div>
+          {% if user.is_authenticated %}
+          <div class="comment-control logged-comment" news-id="{{ news.id }}">
+            <input type="text" placeholder="请填写评论">
+            <button class="comment-btn">发表评论</button>
+          </div>
+        {% else %}
+          <div class="comment-control please-login-comment" news-id="{{ news.id }}">
+            <input type="text" placeholder="请登录后参加评论" readonly>
+            <button class="comment-btn">发表评论</button>
+          </div>
+        {% endif %}
+
+        </div>
+        <ul class="comment-list">
+        {% for i in commss %}
+            <li class="comment-item">
+            <div class="comment-info clearfix">
+              <img src="../../static/images/avatar.jpeg " alt="avatar" class="comment-avatar">
+              <span class="comment-user">{{ i.author }}</span>
+              <span class="comment-pub-time">{{ i.update_time }}</span>
+            </div>
+            <div class="comment-content">{{ i.content }}</div>
+
+              {% if i.parent %}
+              <div class="parent_comment_text">
+                <div class="parent_username">{{ i.parent.author }}</div>
+                <br/>
+                <div class="parent_content_text">
+                      {{ i.parent.content }}
+                </div>
+              </div>
+              {% endif %}
+
+              <div class="comment_time left_float">{{ i.update_time }}</div>
+              <a href="javascript:void(0);" class="reply_a_tag right_float">回复</a>
+              <form class="reply_form left_float" comment-id="{{ i.content_id }}"
+                    news-id="{{ i.news_id }}">
+                <textarea class="reply_input"></textarea>
+                <input type="button" value="回复" class="reply_btn right_float">
+                <input type="reset" name="" value="取消" class="reply_cancel right_float">
+              </form>
+          </li>
+   {% endfor %}
+
+        </ul>
+      </div>
+
+    </div>
+
+
+    <!-- news-contain end  -->
+
+    <!-- side start -->
+      <aside class="side">
+          <div class="side-activities">
+              <h3 class="activities-title">在线课堂<a href="javascript:void(0)">更多</a></h3>
+              <div class="activities-img">
+                  <a href="javascript:void(0);" target="_blank">
+                      <video src="http://photovideo.photo.qq.com/1074_0b2evfmhqoybn4aadblhdrpdhkiepbuacg2a.f0.mp4?dis_k=6217db12d58d2337278e1084daf7fe48&dis_t=1586778218&vuin=2441497185" controls="controls" height="180px" width="320px" >        </video>
+                  </a>
+                  <p class="activities-tips">小视频</p>
+              </div>
+              <ul class="activities-list">
+
+              </ul>
+          </div>
+          <div class="side-attention clearfix">
+              <h3 class="attention-title">关注我</h3>
+              <ul class="side-attention-address">
+                  <li>
+                      <a href="javascript:void(0);" target="_blank"><i class="PyWhich py-GitHub"></i>longlong</a>
+                  </li>
+                  <li>
+                      <a href="javascript:void(0);" target="_blank"><i class="PyWhich py-zhihu"
+                                                                       style="color:rgb(0, 108, 226);"></i>longlong</a>
+                  </li>
+                  <li>
+                      <a href="javascript:void(0);" target="_blank"><i class="PyWhich py-weibo"
+                                                                       style="color:rgb(245,92,110);"></i>longlong</a>
+                  </li>
+              </ul>
+              <div class="side-attention-qr">
+                  <p>扫码关注</p>
+              </div>
+          </div>
+
+
+
+          <div class="side-hot-recommend">
+                <h3 class="hot-recommend">热门推荐</h3>
+               <ul class="hot-news-list">
+                 {% for i in click %}
+
+                  <li>
+                      <a href="{% url 'index:n_detail' i.id %}" class="hot-news-contain clearfix">
+                          <div class="hot-news-thumbnail">
+                              <img src="{{i.image_url}}"
+                                   alt="">
+                          </div>
+                          <div class="hot-news-content">
+                              <p class="hot-news-title">{{i.title}}</p>
+                              <div class="hot-news-other clearfix">
+                                  <span class="news-type">{{i.tag.name}}</span>
+                                  <!-- 自带的 -->
+                                  <time class="news-pub-time">{{i.update_time |date:' Y/d'}}</time>
+                                  <span class="news-author">{{i.author.username}}</span>
+                              </div>
+                          </div>
+                      </a>
+                  </li>
+                {% endfor %}
+              </ul>
+          </div>
+
+
+      </aside>
+    <!-- side end -->
+
+  </div>
+
+</main>
+{% endblock  %}
+
+{% block script %}
+<script src="../../static/js/news/news_comm.js"></script>
+{% endblock %}
+
+
+
+
+
+
+

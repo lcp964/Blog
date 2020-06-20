@@ -1,0 +1,104 @@
+{% extends 'base/base.html' %}
+{% block title %}
+下载文档页面
+{% endblock   %}
+
+{% block link %}
+ <link rel="stylesheet" href="../../static/css/doc/docDownload.css">
+{% endblock   %}
+
+{% block main %}
+
+<main id="main">
+    <div class="w1200 clearfix">
+        <!-- main-contain start  -->
+        <div class="main-contain ">
+            <div class="banner">
+                <img src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1802845035,3786939119&fm=26&gp=0.jpg"
+                     alt="">
+            </div>
+            <div class="pay-doc-contain">
+                <ul class="pay-list">
+              {% for i in doc %}
+                    <li class="pay-item">
+                        <div>
+                            <img src="{{i.image_url}}" alt="图片加载失败" class="pay-img doc">
+                        </div>
+                        <div class="d-contain">
+                            <p class="doc-title"><a href="{{i.file_url}}">{{i.title}}</a></p>
+                            <p class="doc-desc">{{i.docs}}</p>
+
+                            <!-- /www/?xxx -->
+                            <a href="{% url 'doc:download' i.id %}" class="pay-price">下载</a>
+                        </div>
+                    </li>
+
+              {% endfor %}
+
+                </ul>
+            </div>
+        </div>
+        <!-- main-contain  end -->
+        <!-- side start -->
+        <aside class="side">
+             <div class="side-activities">
+              <h3 class="activities-title">在线课堂<a href="
+bos://888888888888/videoworks/console-upload/531284eb3afd15463e717192e6bd320c.mp4
+">更多</a></h3>
+              <div class="activities-img">
+                  <a href="javascript:void(0);" target="_blank">
+                      <video src="
+http://kdrdxb00kexev9wg66j.exp.bcevod.com/mda-kdrmkh7bw0vfavr8/mda-kdrmkh7bw0vfavr8.m3u8
+" controls="controls" height="180px" width="320px" >        </video>
+                      <!--<img src="http://photovideo.photo.qq.com/1074_0b2ekvpwaoygvuaajqmv5npdiviemckama2a.f20.mp4?dis_k=9914d49034c3e32e988c3170ff7f21f7&dis_t=1586772502&vuin=2441497185" alt="title">-->
+                  </a>
+                  <p class="activities-tips">治愈系漫画(宫骏崎)</p>
+              </div>
+              <ul class="activities-list">
+
+              </ul>
+          </div>
+          <div class="side-attention clearfix">
+              <h3 class="attention-title">关注我</h3>
+              <ul class="side-attention-address">
+                  <li>
+                      <a href="javascript:void(0);" target="_blank"><i class="PyWhich py-GitHub"></i>longlong</a>
+                  </li>
+                  <li>
+                      <a href="javascript:void(0);" target="_blank"><i class="PyWhich py-zhihu"
+                                                                       style="color:rgb(0, 108, 226);"></i>longlong</a>
+                  </li>
+                  <li>
+                      <a href="javascript:void(0);" target="_blank"><i class="PyWhich py-weibo"
+                                                                       style="color:rgb(245,92,110);"></i>longlong</a>
+                  </li>
+              </ul>
+              <div class="side-attention-qr">
+                  <p>扫码关注</p>
+              </div>
+          </div>
+
+
+
+        </aside>
+        <!-- side end -->
+
+
+    </div>
+</main>
+{% endblock   %}
+
+
+ {% block script %}
+ <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script src="../../static/js/commons.js"></script>
+    {% endblock  %}
+
+
+
+
+
+
+
+
+
